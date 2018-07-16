@@ -69,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EnvioEmails.aspx" />
+    <Content Include="formatosCarga\index.html" />
+    <Content Include="formatosCarga\temp\index.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
