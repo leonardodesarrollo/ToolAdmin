@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -31,7 +32,32 @@ namespace ToolAdmin
             
             try
             {
-                
+                if (fuArchivo.HasFile)
+                {
+                    string tipoArchivo = fuArchivo.FileName;
+                    tipoArchivo = tipoArchivo.Substring(tipoArchivo.LastIndexOf(".") + 1).ToLower();
+                    if (tipoArchivo == "csv")
+                    {
+                        fuArchivo.SaveAs(Server.MapPath("formatosCarga/temp/" + fuArchivo.FileName));
+
+                        DataTable dt = new DataTable();
+                        List<string[]> testParse = parseCSV(Server.MapPath("formatosCarga/temp/" + fuArchivo.FileName));
+
+                        foreach (string column in testParse[0])
+                        {
+                            dt.Columns.Add(column);
+                        }
+
+                        for (int n = 1; n < testParse.Count; n++)
+                        {
+                            string[] row = testParse[n];
+                            dt.Rows.Add(row);
+                        }
+                        Session["dtEmails"]= dt;
+                        grvEmails.DataSource = dt;
+                        grvEmails.DataBind();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -41,7 +67,62 @@ namespace ToolAdmin
 
         protected void btnEnviaEmails_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = Session["dtEmails"] as DataTable;
 
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    string body = txtBody.Text;
+                    string subject = txtSubject.Text;
+                    string emailTo = txtEmail.Text;
+
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        body = body.Replace("|" + column.ColumnName + "|", row[column].ToString());
+                        subject = subject.Replace("|" + column.ColumnName + "|", row[column].ToString());
+                        emailTo = emailTo.Replace("|" + column.ColumnName + "|", row[column].ToString());
+                    }
+
+                    string bodyFinal = body;
+                    string subjectFinal = subject;
+                    string emailToFinal = emailTo;
+
+                    EnviarEmail(emailToFinal, bodyFinal, subjectFinal);
+
+                    lblResultado.Text += emailToFinal +"Enviado";
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+        }
+
+
+        public void EnviarEmail(string email, string body, string sub)
+        {
+            System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
+
+            correo.From = new MailAddress("<notificaciones@getsoft.cl>");
+            string bodyEmail = body;
+
+            String[] AMailto = email.Split(';');
+            foreach (String mail in AMailto)
+            {
+                correo.To.Add(new MailAddress(mail));
+            }
+
+            correo.Subject = sub;
+            correo.IsBodyHtml = true;
+            correo.Body = bodyEmail;
+
+
+            SmtpClient client = new SmtpClient();
+
+            client.Send(correo);
         }
 
         public List<string[]> parseCSV(string path)
