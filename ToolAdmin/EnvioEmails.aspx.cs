@@ -86,7 +86,7 @@ namespace ToolAdmin
                         emailTo = emailTo.Replace("|" + column.ColumnName + "|", row[column].ToString());
                     }
 
-                    string bodyFinal = body;
+                    string bodyFinal = body.Replace("\r\n", "<br>");
                     string subjectFinal = subject;
                     string emailToFinal = emailTo;
 

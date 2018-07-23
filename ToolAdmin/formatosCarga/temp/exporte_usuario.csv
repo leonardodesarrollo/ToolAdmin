@@ -1,0 +1,16 @@
+ID_USUARIO;USUARIO;CONTRASENA;EMAIL;NOMBRE;NOM_PERFIL;ID_AREA;AREA;ACTIVO
+1;LDIAZ;LDIAZ;ldiaz@interweb.cl;LEONARDO DIAZ;Administrador;;;SI
+2;trabajador;trabajador;ldiaz@interweb.cl;Trabajador;Trabajador;1;Electrico;SI
+3;planificador;planificador;ldiaz@interweb.cl;Programador;Planificador ;;;NO
+4;cliente;cliente;ldiaz@interweb.cl;Cliente;Cliente;;;NO
+5;supervisor;supervisor;ldiaz@getsoft.cl;Supervisor;Supervisor;1;Electrico;SI
+6;GRODRIGUEZ;GRODRIGUEZ;ldiaz@getsoft.cl;GUILLERMO RODRIGUEZ;Planificador ;;;SI
+7;JRUBILAR;JRUBILAR;ldiaz@getsoft.cl;JOHN RUBILAR;Supervisor;1;Electrico;SI
+8;PIBACETA;PIBACETA;ldiaz@getsoft.cl;PEDRO IBACETA;Supervisor;1;Electrico;SI
+9;VREYES;VREYES;ldiaz@getsoft.cl;VICTOR REYES;Supervisor;2;Sanitario;SI
+10;ACORTES;ACORTES;ldiaz@getsoft.cl;ALEXIS CORTES;Supervisor;2;Sanitario;SI
+11;JMATURANA;JMATURANA;ldiaz@getsoft.cl;JOSE LUIS MATURANA;Cliente;;;SI
+12;PNAVARRO;PNAVARRO;ldiaz@getsoft.cl;PABLO NAVARRO;Cliente;;;SI
+13;LMUNOZ;LMUNOZ;ldiaz@getsoft.cl;LUIS MUNOZ;Cliente;;;SI
+14;GORELLANA;GORELLANA;ldiaz@getsoft.cl;GABRIEL ORELLANA;Planificador ;;;SI
+15;ODIAZ;ODIAZ;odiaz@tagor.cl;Omar Diaz;Administrador;;;SI
