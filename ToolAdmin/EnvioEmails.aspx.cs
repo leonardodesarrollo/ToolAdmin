@@ -72,7 +72,6 @@ namespace ToolAdmin
                 DataTable dt = new DataTable();
                 dt = Session["dtEmails"] as DataTable;
 
-
                 foreach (DataRow row in dt.Rows)
                 {
                     string body = txtBody.Text;
@@ -92,7 +91,7 @@ namespace ToolAdmin
 
                     EnviarEmail(emailToFinal, bodyFinal, subjectFinal);
 
-                    lblResultado.Text += emailToFinal +"Enviado";
+                    lblResultado.Text += emailToFinal +": Enviado <br>";
                 }
             }
             catch (Exception ex)
